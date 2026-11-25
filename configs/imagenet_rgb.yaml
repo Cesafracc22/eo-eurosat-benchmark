@@ -1,0 +1,19 @@
+# Baseline: ResNet-18 pretrained on ImageNet, EuroSAT RGB (3 bands).
+# Comparable to common remote-sensing transfer setups.
+experiment_name: imagenet_rgb
+dataset: eurosat
+bands: rgb
+weights: imagenet
+model: resnet18
+
+data_root: data
+download: true
+output_dir: results/imagenet_rgb
+
+seed: 42
+batch_size: 64
+num_workers: 2
+epochs: 15
+lr: 0.0003
+weight_decay: 0.0001
+early_stopping_patience: 5

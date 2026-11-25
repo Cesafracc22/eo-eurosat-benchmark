@@ -1,0 +1,18 @@
+# Tiny smoke run (~100 images). Use this first to verify the pipeline.
+experiment_name: smoke_eurosat100
+dataset: eurosat100
+bands: rgb
+weights: imagenet
+model: resnet18
+
+data_root: data
+download: true
+output_dir: results/smoke_eurosat100
+
+seed: 42
+batch_size: 8
+num_workers: 0
+epochs: 2
+lr: 0.001
+weight_decay: 0.0001
+early_stopping_patience: 2

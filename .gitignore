@@ -1,0 +1,31 @@
+# Data & artifacts
+data/*
+!data/.gitkeep
+results/*
+!results/.gitkeep
+!results/README.md
+runs/
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.env
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Notebooks
+.ipynb_checkpoints/

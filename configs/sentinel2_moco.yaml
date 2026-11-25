@@ -1,0 +1,19 @@
+# EO in-domain baseline: ResNet-18 with Sentinel-2 MoCo weights (TorchGeo).
+# Uses all 13 EuroSAT MSI bands — closest to "prepare EO data + train EO model".
+experiment_name: sentinel2_moco
+dataset: eurosat
+bands: all
+weights: sentinel2_moco
+model: resnet18
+
+data_root: data
+download: true
+output_dir: results/sentinel2_moco
+
+seed: 42
+batch_size: 32
+num_workers: 2
+epochs: 15
+lr: 0.0003
+weight_decay: 0.0001
+early_stopping_patience: 5
