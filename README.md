@@ -1,18 +1,8 @@
 # eo-eurosat-benchmark
 
-Small, reproducible land-cover benchmark on **Sentinel-2 / EuroSAT**.
+Reproducible land-cover classification on **Sentinel-2 / EuroSAT**.
 
-Built as a one-week prep project for ESA Φ-lab **AI for Earth Observation**: dataset prep, model training, and a fair comparison between generic and EO-pretrained weights.
-
-## Why this setup
-
-- **EuroSAT** — 27k patches, 64×64, 10 classes, downloadable, standard in EO ML.
-- **EuroSAT100** — tiny subset for smoke checks before a full run.
-- **Two weight regimes**
-  1. ImageNet ResNet-18 on RGB
-  2. Sentinel-2 MoCo ResNet-18 on 13 MSI bands (TorchGeo)
-
-That comparison matches Topic 1 language: prepare EO data, train/benchmark EO models, and touch in-domain EO pretraining (stepping stone toward geospatial FMs).
+Compares a generic ImageNet ResNet-18 (RGB) with an in-domain Sentinel-2 MoCo ResNet-18 (13 MSI bands) under the same training and evaluation protocol.
 
 ## Setup
 
@@ -26,13 +16,13 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Run (do smoke first)
+## Run
 
 ```bash
-# 1) pipeline check (~minutes, tiny data)
+# tiny subset — check the pipeline first
 python scripts/train.py --config configs/smoke_eurosat100.yaml
 
-# 2) full baselines (download EuroSAT once into data/)
+# full EuroSAT baselines
 python scripts/train.py --config configs/imagenet_rgb.yaml
 python scripts/train.py --config configs/sentinel2_moco.yaml
 ```
@@ -46,12 +36,12 @@ python scripts/evaluate.py --checkpoint results/imagenet_rgb/best.pt
 ## Layout
 
 ```
-configs/          experiment YAML (source of truth)
+configs/          experiment YAML
 src/eo_bench/     data, models, train, eval, metrics
 scripts/          CLI entrypoints
 data/             downloaded datasets (gitignored)
 results/          metrics + checkpoints (checkpoints gitignored)
-NOTES.md          decisions from similar projects
+NOTES.md          design notes and references
 ```
 
 Each run writes `results/<name>/config.yaml`, `metrics.json`, `history.json`, `best.pt`.
@@ -62,16 +52,17 @@ Primary: **accuracy** and **macro-F1** on the official test split. Confusion mat
 
 ## Design choices
 
-- Plain PyTorch (no Lightning) so the training loop is readable in an interview.
-- TorchGeo only for datasets + Sentinel-2 weights.
-- Fixed TorchGeo/Neumann splits (not random file splits).
-- One seed in configs; multi-seed is a follow-up.
+- Plain PyTorch training loop
+- TorchGeo for EuroSAT and Sentinel-2 pretrained weights
+- Fixed TorchGeo / Neumann splits (not random file splits)
+- One seed in configs; multi-seed is optional follow-up
+- MSI band order aligned with SSL4EO / MoCo (see `NOTES.md`)
 
-## Next (optional)
+## Optional next steps
 
 - 3 seeds → mean ± std
 - few-shot (5% labels)
-- Prithvi / TerraTorch linear probe on a 6-band subset
+- geospatial foundation model linear probe (e.g. Prithvi)
 
 ## License
 

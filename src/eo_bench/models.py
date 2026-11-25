@@ -1,7 +1,7 @@
 """Model builders for the EuroSAT benchmark.
 
-Two weight regimes relevant to AI4EO:
-- ImageNet RGB: strong generic vision baseline
+Weight regimes:
+- ImageNet RGB: generic vision baseline
 - Sentinel-2 MoCo (TorchGeo): in-domain EO pretraining on MSI
 """
 

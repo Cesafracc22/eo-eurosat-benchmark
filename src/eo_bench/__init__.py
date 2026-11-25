@@ -1,3 +1,3 @@
-"""EuroSAT land-cover benchmark for AI4EO internship prep."""
+"""EuroSAT land-cover benchmark."""
 
 __version__ = "0.1.0"

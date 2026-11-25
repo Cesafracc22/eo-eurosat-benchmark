@@ -1,7 +1,7 @@
-"""EuroSAT loaders with fixed, leakage-safe splits.
+"""EuroSAT loaders with fixed splits.
 
-Splits follow Neumann et al. / TorchGeo defaults (not random file splits).
-That matters for EO: nearby patches can leak geography into validation.
+Splits follow Neumann et al. / TorchGeo defaults (not random file splits),
+so nearby patches are less likely to leak across train/val/test.
 """
 
 from __future__ import annotations
